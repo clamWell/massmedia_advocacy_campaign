@@ -64,7 +64,42 @@ $(function(){
 	});
 
 
+	var nowScroll;
+	var videoPos = "before";
+	//$(".fixed-slider-area .fixed-el").css({"padding-top": ((screenHeight-$(".map-holder").height())/2) +"px"});
+	//$(".fixed-slider-area").css({"height": ($(".map-fixed-slider").height()+screenHeight)+"px"});
+	$(window).scroll(function(){
+		var nowScroll = $(window).scrollTop();
+		var nowScrollWithCon = nowScroll+screenHeight*0.6;
+		var endPoint = $(".fixed-slider-area").offset().top + $(".fixed-slider-area").height()-screenHeight;
 
+		if( nowScroll >= $(".fixed-slider-area").offset().top && nowScroll < endPoint ){
+			if(videoPos !== "on"){
+				videoPos = "on";
+				$(".fixed-el").addClass("fixed-el-fixed");
+				$(".fixed-el").removeClass("fixed-el-bottom");
+				$(".fixed-slider-area").addClass("fixed-slider-area-bgBlack");
+			}
+
+		}else if( nowScroll < $(".fixed-slider-area").offset().top ){
+			if(videoPos !== "before"){
+				videoPos = "before";
+				$(".fixed-el").removeClass("fixed-el-fixed");
+				$(".fixed-el").removeClass("fixed-el-bottom");
+				$(".map--layer").hide();
+				$(".fixed-slider-area").removeClass("fixed-slider-area-bgBlack");
+
+			}
+		}else if( nowScroll >= endPoint){
+			if(videoPos !== "after"){
+				videoPos = "after";
+				$(".fixed-el").removeClass("fixed-el-fixed");
+				$(".fixed-el").addClass("fixed-el-bottom");
+				$(".fixed-slider-area").removeClass("fixed-slider-area-bgBlack");
+			}
+		}
+		console.log(videoPos);
+	});
 	
 
 });
