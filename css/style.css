@@ -69,7 +69,7 @@ img { border:0; vertical-align:bottom; }
 html {}
 body { background: #fff;  position: relative; letter-spacing: -0.02em; font-family: 'Noto Sans KR', 'notokr-regular', 'Apple SD Gothic Neo','맑은 고딕', Malgun Gothic, '돋움', Dotum, Helvetica, AppleGothic, Sans-serif; }
 body.fixed { height:100vh; overflow-y: hidden; }
-body {  font-family: 'Noto Serif KR',  'notokr-regular'; }
+body {  }
 
 
 /* loading */
@@ -193,8 +193,8 @@ width: 27px; height: 30px;}
 
 .story-top-graphic .graphic-holder {} 
 .story-top-graphic .graphic-holder .graphic-mornitor {  position: absolute;top: 50%; margin-top: -130px; width: 500px;left: 50%; margin-left: -300px;}
-.story-top-graphic .graphic-holder .graphic-mornitor img { width: 100%; }
-.story-top-text-box .text-box {box-shadow: -10px 0px 20px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box; 
+.story-top-graphic .graphic-holder .graphic-mornitor img { width: 100%; position: relative; top:0;left:0;}
+.story-top-text-box .text-box {font-family: 'Noto Serif KR',  'notokr-regular'; box-shadow: -10px 0px 20px rgba(0,0,0,0.1); width: 100%; box-sizing: border-box; 
 padding: 30px;  color: #fff;position: relative; top: 50%; margin-top: -180px;} 
 .story-top-text-box .text-box .brand {  opacity: 0.8; font-family: 'Noto Sans KR';  border-top: 2px solid #fff;display: inline-block; padding-top: 5px; }
 .story-top-text-box .text-box h1.news-title { font-size: 34px;line-height: 1.35;  margin: 30px auto;}
@@ -223,7 +223,7 @@ font-size: 50px;  line-height: 55px; color: #111; font-weight: 600; color: #3146
 .each-sec .sec-title .subtitle {font-family: 'Noto Serif KR', 'notokr-regular', serif;color: #111; text-align: center;font-size: 24px;font-weight:bold;}
 .each-sec .sec-title {  position: relative;margin-bottom: 50px;}
 
-.para-holder { margin: 70px auto; }
+.para-holder { margin: 70px auto;font-family: 'Noto Serif KR',  'notokr-regular'; }
 .para-holder p {font-size: 20px;  max-width: 600px; text-align: left; color: #222; margin: 20px auto; 
 line-height: 1.7; letter-spacing: -0.3px;  }
 .para-holder p span.semi { font-size: 16px; opacity:0.85; }
@@ -232,7 +232,7 @@ line-height: 1.7; letter-spacing: -0.3px;  }
 .video-fullScreen { width:100%;  height: 100vh; }
 .video-fullScreen video { width: 100%;  height: 100vh; }
 
-.fixed-slider-area { width: 100%; position: relative; transition:all 0.7s ease 0s; }
+.fixed-slider-area { width: 100%; position: relative; transition:all 0.7s ease 0s;  margin: 200px auto;}
 .fixed-slider-area-bgBlack { background:#111;} 
 .fixed-slider-area .fixed-el { transition:all 0.7s ease 0s;  z-index:1;position: absolute; top: 0;width: 100%; height: 100vh;  }
 .fixed-slider-area .fixed-el-fixed { position: fixed; top:0;  box-sizing: border-box; border: 20px solid #111;} 
@@ -242,11 +242,54 @@ line-height: 1.7; letter-spacing: -0.3px;  }
 
 .spacer-holder { position: relative; z-index:2; }
 .spacer { width: 100%; height: 100vh; display: block; }
-.spacer .text-box { box-shadow: 5px 5px 15px rgba(0,0,0, 0.05);  color: #fff; background: #111;font-weight: 500; 
+.spacer .text-box {font-family: 'Noto Serif KR',  'notokr-regular'; box-shadow: 5px 5px 15px rgba(0,0,0, 0.05);  color: #fff; background: #111;font-weight: 500; 
 padding:15px 20px; max-width: 550px; margin: 0 auto; letter-spacing: -0.02em; font-size: 20px; line-height: 1.6; font-weight: bold; word-break: keep-all;}
 .spacer .text-box p { margin: 5px 0; }
 .spacer-right .spacer .text-box { position: relative; left: 400px; }
 .spacer-transparent { height:10px;}
+
+.interviewee-holder { max-width: 600px; margin: 50px auto; position: relative;}
+.interviewee-holder .interview-text { position: relative;}
+.interviewee-holder .interview-text p { font-family: 'Noto Serif KR',  'notokr-regular';font-weight: bold;font-size: 22px; text-align: left;color: #111;line-height: 1.7; 
+letter-spacing: -0.3px; word-break: keep-all; margin: 20px auto;  }
+.interviewee-holder .interview-text .name { text-align: right; font-size: 16px; font-weight: normal; margin-top: 15px; }
+
+.graph-holder { margin: 100px auto; }
+.graph-holder > div {}
+.graph-img-rep {}
+.graph-img-rep img { display:block; margin: 0 auto; }
+.graph-caption { margin-top: 10px; font-family: 'Noto Sans KR';}
+.graph-caption p { text-align: center; font-size: 16px; color:#444; }
+
+.img-holder { margin: 100px auto; }
+.img-holder .caption { text-align: center; max-width: 600px; margin: 20px auto; font-size: 14px; line-height: 1.5;opacity: 0.85; }
+.caption { font-family: 'Noto Sans KR'; text-align: center; max-width: 600px; margin: 20px auto; font-size: 14px; line-height: 1.5;opacity: 0.85; }
+.img-holder > img { display:block; margin: 0 auto;  }
+.img-holder-full { width: 100%;}
+.img-holder-full > img { width: 100%; max-width: 1600px;  position: relative;}
+
+.img-holder-s2-01 {position: relative;margin: 150px auto; max-width: 1500px;}
+.img-holder-s2-01 .showup-text { position: absolute; }
+.img-holder-s2-01 .showup-text > img { width:100%;  position: relative;} 
+.img-holder-s2-01 .sw--01 { left: 50%; margin-left: -500px; top: -80px; width: 180px;  }
+.img-holder-s2-01 .sw--02 { bottom:-65px; right: 50%; margin-right:-700px; width: 750px; }
+.img-holder-s2-01 .caption { text-align: left; margin: 5px; }
+.img-holder-s2-01 .cover { display:block; margin: 0 auto; width: 100%; max-width: 1500px;  position: relative; }
+
+.img-holder-s2-01 .sw--01 img { top: 100px; }
+.img-holder-s2-01 .sw--02 img { bottom: 100px; }
+
+.formula-holder { margin: 100px auto; }
+.formula-holder .media-formula { width: 60%; max-width:650px;  box-sizing: border-box;padding: 30px;margin: 0 auto; border: 15px solid #1a2fff; }
+.formula-holder .media-formula ul { width:100%; }
+.formula-holder .media-formula ul li { text-align: center; color:#111; font-size: 18px; font-weight:bold; 
+margin: 5px 0; }
+
+.refer {  max-width: 600px; margin: 0 auto;  margin: 30px auto;  box-sizing: border-box;
+ padding: 20px;background: #f2f2f3;}
+.refer p {  width: 100%; font-size: 14px; line-height: 21px; color: #3f4550;}
+.refer p span { font-weight: bold;  display: block;margin-bottom: 5px;}
+
 
 /*****footer*****/
 .footer-area {  background:#fff;  margin-top: 100px;  box-shadow: 0px -15px 20px rgba(0,0,0,0.05); border-top: 1px solid #cdd1d6; 
