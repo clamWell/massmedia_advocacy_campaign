@@ -268,7 +268,7 @@ letter-spacing: -0.3px; word-break: keep-all; margin: 20px auto;  }
 .img-holder-full { width: 100%;}
 .img-holder-full > img { width: 100%; max-width: 1600px;  position: relative;}
 
-.img-holder-s2-01 {position: relative;margin: 150px auto; max-width: 1500px;}
+.img-holder-s2-01 {position: relative; margin: 150px auto; max-width: 1500px;}
 .img-holder-s2-01 .showup-text { position: absolute; }
 .img-holder-s2-01 .showup-text > img { width:100%;  position: relative;} 
 .img-holder-s2-01 .sw--01 { left: 50%; margin-left: -500px; top: -80px; width: 180px;  }
@@ -284,6 +284,21 @@ letter-spacing: -0.3px; word-break: keep-all; margin: 20px auto;  }
 .formula-holder .media-formula ul { width:100%; }
 .formula-holder .media-formula ul li { text-align: center; color:#111; font-size: 18px; font-weight:bold; 
 margin: 5px 0; }
+
+
+.speach-list { margin: 50px auto; width: 100%;  }
+.speach-list ul { }
+.speach-list ul li { width: 50%; max-width: 600px; margin: 10px auto; }
+.spc-card {box-sizing: border-box; padding:30px; background:#1d2088; border-radius: 8px; }
+.spc-card .spc-card-wrap {}
+.spc-card .card-index {}
+.spc-card .card-bg {}
+.spc-card .spc-text {}
+.spc-card .spc-text .quoto {}
+.spc-card .spc-text .quoto-start {}
+.spc-card .spc-text .quoto-end {}
+.spc-card .spc-text .text-holder {}
+
 
 .refer {  max-width: 600px; margin: 0 auto;  margin: 30px auto;  box-sizing: border-box;
  padding: 20px;background: #f2f2f3;}
