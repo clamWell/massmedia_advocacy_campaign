@@ -13,7 +13,9 @@ $(function(){
 	$(window).resize(function() {
 		screenWidth = $(window).width();
 		screenHeight = $(window).height();
+		checkIfProgressOverflow(screenWidth);
     });
+
 
 	$(".close-ie-block").on("click", function(){
 		$(".ie-block-9").hide();
@@ -43,7 +45,16 @@ $(function(){
 	};
 	
 	*/
-	
+
+
+	function checkIfProgressOverflow(sw){
+		if(sw<1100){
+			$(".fixed-navi").stop().animate({"opacity":"0.2"}, 300);
+		}else{
+			$(".fixed-navi").stop().animate({"opacity":"1"}, 300);
+		}	
+	}
+
 	/*************make speach card***************/
 	var speachCard = {
 		data : s_card_data,
@@ -61,11 +72,8 @@ $(function(){
 				this.cardListHolder.append(this.printTemplate(i));
 			}
 		}
-
-
 	};
-
-
+	/*************make speach card***************/
 
 	/*******Video Slider function******/
 	var nowScroll;
@@ -105,15 +113,6 @@ $(function(){
 	}
 	/*******Video Slider function******/
 
-
-	function showUpImgAni(){
-		showupAniDone = true;
-		$(".sw--01").find("img").animate({"top":"0px"}, 1000, "easeOutBack", function(){
-			$(".sw--02").find("img").animate({"bottom":"0px"}, 1000, "easeOutBack");
-		});
-	}
-	
-
 	/********progress********/
 	var progressBar = {
 		progressStatus : false,
@@ -142,33 +141,14 @@ $(function(){
 		
 		}
 	}
-
-	/*
-	var progressStatus = false;
-	function showProgress(){
-		$(".fixed-navi").stop().animate({"right":"10px"},500); 
-	};
-	function hideProgress(){
-		$(".fixed-navi").stop().animate({"right":"-200px"},500); 
-	};
-	function setProgress(sc){
-		var fullScroll = $(document).height()-$(window).height()-( $(".footer-area").height()+$(".digital-list").height() +$(".common-footer").height());	
-		var ScrollPer = (sc/fullScroll)*100;
-		if( (sc<$(".sec--01").offset().top || sc > fullScroll) && (progressStatus == true)){
-			progressStatus = false;
-			hideProgress();
-		}else if((sc>=$(".sec--01").offset().top && sc <= fullScroll) && (progressStatus == false) ){
-			progressStatus = true;
-			showProgress();
-		}
-		if(isMobile==true){
-			$(".progress").css({"width":ScrollPer+"%"});
-		}else {
-			$(".progress").css({"height":ScrollPer+"%"});
-		}	
-
-	}*/
 	/********progress********/
+
+	function showUpImgAni(){
+		showupAniDone = true;
+		$(".sw--01").find("img").animate({"top":"0px"}, 1000, "easeOutBack", function(){
+			$(".sw--02").find("img").animate({"bottom":"0px"}, 1000, "easeOutBack");
+		});
+	}
 
 	/******** 모바일 전용 조정 ********/
 	if(isMobile==true){
