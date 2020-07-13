@@ -75,6 +75,26 @@ $(function(){
 	};
 	/*************make speach card***************/
 
+	/*************make character list***************/
+	var chrGraph = {
+		data : chrData,
+		chrListHolder : $(".chr-list"),
+		printTemplate : function(i){
+			var d = this.data[i];
+			var template = "<li><div class='each-chr-box'><div class='thumb'><img src='img/" + d.thumb +".jpg' alt='섬네일'></div><div class='chr-name'>"+d.chrName +"</div></div></li>";
+			return template; 
+		},
+		makeChrList : function(){
+			this.chrListHolder.find("ul").html("");
+			for(i=0;i<this.data.length;i++){
+				var chrHolder = this.chrListHolder.find("ul").eq(this.data[i].chrType-1);
+				chrHolder.append(this.printTemplate(i));
+			}
+		}
+	};
+	/*************make speach card***************/
+
+
 	/*******Video Slider function******/
 	var nowScroll;
 	var videoSlider = {
@@ -158,6 +178,7 @@ $(function(){
 
 	function init(){
 		speachCard.makeCard();
+		chrGraph.makeChrList();
 		
 	}
 
