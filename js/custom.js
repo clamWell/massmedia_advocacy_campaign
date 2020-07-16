@@ -48,10 +48,11 @@ $(function(){
 
 
 	function checkIfProgressOverflow(sw){
-		if(sw<1100){
-			$(".fixed-navi").stop().animate({"opacity":"0.2"}, 300);
+		if(sw<1200){
+			$(".fixed-navi").stop().animate({"opacity":"0.2", "z-index":"-1"}, 300);
+
 		}else{
-			$(".fixed-navi").stop().animate({"opacity":"1"}, 300);
+			$(".fixed-navi").stop().animate({"opacity":"1","z-index":"1"}, 300);
 		}	
 	}
 
@@ -75,13 +76,55 @@ $(function(){
 	};
 	/*************make speach card***************/
 
+	/********tag********/
+	var chrTag = {
+		tagList : [{"name":"반사회적인격장애","idx":"1"}, {"name":"범죄","idx":"2"}, {"name":"불륜","idx":"3"}, {"name":"배신과 음모","idx":"4"},{"name":"복수","idx":"5"},{"name":"누명","idx":"6"},{"name":"범죄나 폭력 피해","idx":"7"},{"name":"주변에 헌신","idx":"8"}],
+		getTagIdx : function(name){
+			var idx;
+			for(c=0;c<this.tagList.length;c++){
+				if(this.tagList[c].name == name){
+					idx = this.tagList[c].idx;
+					break;
+				}
+			}		
+			return idx;
+		},
+		adjustTagFilter : function(filterTag){
+			this.resolveTagFilter();
+			$(".each-chr-box").addClass("off");
+			$(".each-chr-box").each(function(index,item){
+				var dIdx =( $(item).attr("data-chr-id") * 1 )-1;
+				if(chrData[dIdx].tag.indexOf(filterTag)!= -1){
+					$(item).addClass("on");
+				}else{
+				}
+			});
+		},
+		resolveTagFilter: function(){
+			$(".each-chr-box").removeClass("off on");
+		}
+	}
+	/********tag********/
+
 	/*************make character list***************/
 	var chrGraph = {
 		data : chrData,
 		chrListHolder : $(".chr-list"),
+		printTagSpot : function(tagStr){
+			var tempTagStr = ""; 
+			var tagArr = tagStr.split(",");
+			for(ti=0;ti<tagArr.length;ti++){
+				var t = tagArr[ti].replace(/^ /gi, "");
+				t = t.trim();
+				var tag = "<span class='tagSpot tagSpot0"+chrTag.getTagIdx(t)+"'></span>";
+				tempTagStr = tempTagStr += tag;
+			}
+			return tempTagStr;
+		},
 		printTemplate : function(i){
 			var d = this.data[i];
-			var template = "<li><div class='each-chr-box'><div class='thumb'><img src='img/" + d.thumb +".jpg' alt='섬네일'></div><div class='chr-name'>"+d.chrName +"</div></div></li>";
+			var idx = d.thumb.replace("thumb", "");
+			var template = "<li><div class='each-chr-box' data-chr-id='"+idx+"'><div class='thumb'><img src='img/" + d.thumb +".jpg' alt='섬네일'></div><div class='chr-name'>"+d.chrName +"</div><div class='tag-holder'>"+ this.printTagSpot(d.tag) +"</div></div></li>";
 			return template; 
 		},
 		makeChrList : function(){
@@ -94,6 +137,79 @@ $(function(){
 	};
 	/*************make speach card***************/
 
+
+	/*****popUp card*****/
+	var popUpCard = {
+		data : chrData,
+		popUpStatus: false,
+		onChrArea: false,
+		chrGraphicBody: $(".media-graphic-area"),
+		checkChridx : function(idx){
+			var i = Number(idx*1)-1;
+			this.setCard(i);
+			return i;
+		},
+		printTag: function(tagStr){
+			$(".chrPopUp .tag-list").html("");
+			var tagItem = tagStr.split(","); 
+			for(i=0;i<tagItem.length;i++){
+				var tagText = tagItem[i].replace(/^ /gi, "");
+				tagText = tagText.trim();
+				var tagClass = "popUpTag--"+chrTag.getTagIdx(tagText);
+				$(".chrPopUp .tag-list").append("<span class='"+tagClass+"'>#"+tagText+"</span>");
+			}
+		},
+		setCard: function(i){
+			var d = this.data[i];
+			$(".chrPopUp .popUp-thumb img").attr("src", "img/"+ d.thumb +".jpg");
+			$(".chrPopUp .cont-name").html(d.conName);
+			$(".chrPopUp .maker").html(d.maker);
+			$(".chrPopUp .year").html(d.year);
+			$(".chrPopUp .chr-name").html(d.chrName);
+			$(".chrPopUp .chr-occu").html(d.chrOccu);
+			$(".chrPopUp .chr-concept").html(d.chrConcept);
+			$(".chrPopUp .chr-desc .chr-desc-scroll p").html(d.chrDesc);
+			if(typeof(d.tag) == "string" && d.tag.length>1){
+				this.printTag(d.tag);
+			}
+			this.openCard();
+		},
+		closeCard: function(){
+			this.popUpStatus = false;
+			$(".popUpBack").hide();
+			$(".chrPopUp").stop().animate({"bottom":"-500px"}, 500, "easeOutCubic", function(){
+				$(".chrPopUp").hide();
+			});
+		
+		},
+		openCard: function(){
+			this.popUpStatus = true;
+			$(".popUpBack").show();
+			$(".chrPopUp").fadeIn(100, function(){
+				$(".chrPopUp .chr-desc .chr-desc-scroll").scrollTop(0);
+				$(".chrPopUp").stop().animate({"bottom":"60px"}, 500, "easeOutCubic");
+			});
+		},
+		setDefault: function(){
+			this.closeCard();
+		},
+		checkIfChrArea: function(sc){
+			if( sc >= this.chrGraphicBody.offset().top-screenHeight && sc < (this.chrGraphicBody.offset().top + this.chrGraphicBody.height())){
+				return true;
+			}else{
+				return false;	
+			}
+		},
+		adjustCardStatus: function(){
+			if(this.onChrArea == false && this.popUpStatus == true){
+				this.closeCard();
+			}else{
+			
+			}
+		}
+	};
+	
+	/*****popUp card*****/
 
 	/*******Video Slider function******/
 	var nowScroll;
@@ -163,12 +279,35 @@ $(function(){
 	}
 	/********progress********/
 
+
+
 	function showUpImgAni(){
 		showupAniDone = true;
 		$(".sw--01").find("img").animate({"top":"0px"}, 1000, "easeOutBack", function(){
 			$(".sw--02").find("img").animate({"bottom":"0px"}, 1000, "easeOutBack");
 		});
 	}
+
+	$(".chr-list").delegate(".each-chr-box","click", function(){
+		var idx = $(this).attr("data-chr-id");
+		popUpCard.checkChridx(idx);
+	});
+	$(".popUpBack, .popUp-close").on("click", function(){
+		popUpCard.closeCard();
+	});
+
+	$(".graphic-tag ul li").on("click", function(){
+		if($(this).hasClass("on")){
+			$(".graphic-tag ul li").removeClass("on");
+			chrTag.resolveTagFilter();
+		}else{
+			$(".graphic-tag ul li").removeClass("on");
+			$(this).addClass("on");
+			var tagIdx = $(this).index();
+			var tagTxt = $(this).find(".value").html().replace("#","");
+			chrTag.adjustTagFilter(tagTxt);
+		}
+	});
 
 	/******** 모바일 전용 조정 ********/
 	if(isMobile==true){
@@ -179,6 +318,7 @@ $(function(){
 	function init(){
 		speachCard.makeCard();
 		chrGraph.makeChrList();
+		popUpCard.setDefault();
 		
 	}
 
@@ -190,18 +330,21 @@ $(function(){
 	$(window).scroll(function(){
 		var nowScroll = $(window).scrollTop();
 		var nowScrollWithCon = nowScroll+screenHeight*0.6;
+		progressBar.setProgress(nowScroll);
 
 		if( videoSlider.videoStatus !== videoSlider.checkVideoStatus(nowScroll)){
 			videoSlider.videoStatus = videoSlider.checkVideoStatus(nowScroll);
 			videoSlider.adjustVideoHolder();
 		}
-		
 		var showupAniDone = false; 
 		if( nowScrollWithCon > $("#IMG_HOLDER_SHOWUP_ANI").offset().top && showupAniDone == false){
 			showUpImgAni();
 		}
-
-		progressBar.setProgress(nowScroll);
+		
+		if( popUpCard.onChrArea !== popUpCard.checkIfChrArea(nowScroll) ){
+			popUpCard.onChrArea = popUpCard.checkIfChrArea(nowScroll);
+			popUpCard.adjustCardStatus();
+		}
 
 	});
 	

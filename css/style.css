@@ -295,23 +295,30 @@ margin: 5px 0; }
 .graphic-tag {  text-align: center; margin: 20px auto;}
 .graphic-tag h4 { font-size: 17px; font-weight:bold; color:#111; }
 .graphic-tag p {font-size: 14px;color: #838588;}
-.graphic-tag ul {  margin-top: 10px;}
+.graphic-tag ul {   max-width: 500px; margin: 15px auto;}
 .graphic-tag ul li {  opacity: 0.85; transition:all 0.2s ease 0s; display: inline-block;box-sizing: border-box; padding: 3px 10px; 
-background: #fff; color: #111; font-size: 16px; margin: 2px 1px; border-radius: 3px; font-weight: bold; border: 1px dashed #7d7d7d; cursor:pointer; }
-.graphic-tag ul li:hover { box-shadow: 1px 1px 7px rgba(105, 113, 152, 0.3); opacity:1;border: 1px solid #7d7d7d;  } 
+background: #fff; color: #111; font-size: 14px; margin: 2px 1px; border-radius: 3px; font-weight: bold; border: 1px dashed #7d7d7d; cursor:pointer; }
+.graphic-tag ul li:hover { box-shadow: 1px 1px 7px rgba(105, 113, 152, 0.3); opacity:1; } 
 .graphic-tag ul li .spot { vertical-align: middle; width: 8px; height:8px; display: inline-block; border-radius: 50%;margin-left: 5px; } 
 .tag--1 .spot { background: #5600ff; }
-.tag--2 .spot { background: #a90000; }
+.tag--2 .spot { background: #ff0000; }
 .tag--3 .spot { background: #ff0076; }
-.tag--4 .spot { background: #00b0cc; }
-.tag--5 .spot { background: #ffdc34; }
- 
-.graphic-tag ul li.on { opacity:1; background: #f1f4f7;}
+.tag--4 .spot { background: #60d273; }
+.tag--5 .spot { background: #ff784f; }
+.tag--6 .spot { background: #ffdc34; }
+.tag--7 .spot { background: #920000; }
+.tag--8 .spot { background: #00b0cc; }
+
+
+.graphic-tag ul li.on { opacity:1; background: #f1f4f7; }
 .tag--1.on { border: 1px solid #5600ff; }
-.tag--2.on { border: 1px solid #a90000; }
+.tag--2.on { border: 1px solid #ff0000; }
 .tag--3.on { border: 1px solid #ff0076; }
-.tag--4.on { border: 1px solid #00b0cc; }
-.tag--5.on { border: 1px solid #ffdc34;  }
+.tag--4.on { border: 1px solid #60d273; }
+.tag--5.on { border: 1px solid #ff784f; }
+.tag--6.on { border: 1px solid #ffdc34; }
+.tag--7.on { border: 1px solid #920000; }
+.tag--8.on { border: 1px solid #00b0cc; }
 
 
 .graphic-wrap {  position: relative; margin-top: 50px; box-sizing:border-box; width: 100%; min-height: 500px; }
@@ -341,21 +348,65 @@ position: relative; border-radius: 5px; box-sizing:border-box; padding: 4px; }
 .chr-list .each-col ul {  width:100%; height:100%; }
 .chr-list .each-col ul li {  }
 .chr-list::after { display:block; clear:both; content:"";}
-.chr-list .each-col ul li .each-chr-box { margin: 5px auto; border: 2px solid transparent;  width: 80px; position: relative; cursor: pointer;}
-.chr-list .each-col ul li .each-chr-box:hover { border: 2px solid #000000; border-radius: 8px; box-shadow: 1px 1px 7px rgba(105, 113, 152, 0.5);}
-.chr-list .each-col ul li .each-chr-box .thumb { border-radius: 4px; overflow: hidden; }
-.chr-list .each-col ul li .each-chr-box .thumb img {width: 80px; }
+.chr-list .each-col ul li .each-chr-box {transition:all 0.3s ease 0s; border-radius: 8px;margin: 5px auto; border: 2px solid transparent;  width: 70px; position: relative; cursor: pointer;}
+.chr-list .each-col ul li .each-chr-box:hover { border: 2px solid #000000;  box-shadow: 1px 1px 7px rgba(105, 113, 152, 0.5);}
+.chr-list .each-col ul li .each-chr-box .thumb { border-radius: 4px; overflow: hidden;width: 70px;  }
+.chr-list .each-col ul li .each-chr-box .thumb img { width:100%;}
 .chr-list .each-col ul li .each-chr-box .chr-name {margin-top: 2px; text-align: center;font-size: 12px;font-weight: bold;
 position: absolute;top: 1px; color: #fff; text-shadow: 1px 1px 1px #111; left: 5px;  background: rgba(0,0,0,0.2);}
 .each-chr-box .tag-holder { position: absolute; right:0; top:0; right: -15px;} 
 .each-chr-box .tag-holder .tagSpot { width: 8px; height:8px;display: inline-block; border-radius: 50%; display:block;margin: 4px auto; } 
 .tagSpot01 { background: #5600ff; }
-.tagSpot02 { background: #ff0303; }
+.tagSpot02 { background: #ff0000; }
 .tagSpot03 { background: #ff0076; }
-.tagSpot04 { background: #00b0cc; }
-.tagSpot05 { background: #ffdc34; }
+.tagSpot04 { background: #60d273; }
+.tagSpot05 { background: #ff784f; }
+.tagSpot06 { background: #ffdc34; }
+.tagSpot07 { background: #920000; }
+.tagSpot08 { background: #00b0cc; }
+
+.chr-list .each-col ul li .each-chr-box.off { opacity:0.25;}
+.chr-list .each-col ul li .each-chr-box.off.on { opacity:1; border: 2px solid #000000;}
+.each-chr-box.off .thumb img { -webkit-filter: grayscale(90%); }
+.each-chr-box.on .thumb img {  -webkit-filter: grayscale(0%);}
 
 
+.popUpBack { position: fixed; width:100%; height:100vh; top:0;left:0; z-index:9; display:none;
+cursor: url("http://img.khan.co.kr/spko/storytelling/2020/tracknroom/exit-icon-b-2.png"), auto;  }
+.chrPopUp { position: fixed; bottom: -700px; width: 700px; left:50%;margin-left:-350px;z-index: 10; }
+.chrPopUp .popUp-wrap { width:100%; box-sizing:border-box; padding: 30px; background:#fff; border-radius: 6px; box-shadow: 5px 5px 20px rgba(105, 113, 152, 0.3); }
+.chrPopUp .popUp-col-2 { width:100%; }
+.chrPopUp .popUp-col-2::after { clear:both; content:""; display:block;}
+.popUp-col-2 > div { float:left; }
+.popUp-col-2 .popUp-thumb { width: 25%;  box-sizing: border-box; padding-right: 30px; }
+.popUp-col-2 .popUp-thumb > img { display:block; width:	100%; position: relative;border-radius: 6px;}
+.popUp-col-2 .popUp-txt { width: 75%; }
+.popUp-col-2 .popUp-txt .txt-wrap { width:100%; }
+.popUp-col-2 .popUp-txt .media-info { margin-top:0; }
+.popUp-col-2 .popUp-txt .chr-info { margin: 15px 0; }
+.popUp-col-2 .popUp-txt .chr-info p {  line-height: 1;}
+.popUp-col-2 .popUp-txt .chr-info span {  }
+.popUp-col-2 .popUp-txt .chr-info .chr-name { font-size: 22px; color:#111;font-weight:bold; margin-right: 5px;  }
+.popUp-col-2 .popUp-txt .chr-info .chr-occu { font-size: 16px;color:#333;}
+.popUp-col-2 .popUp-txt .chr-info .chr-concept { font-size: 15px; line-height:1.55;color: #42424e; margin-top: 8px; }
+.popUp-col-2 .popUp-txt .chr-info .tag-list { margin-top: 10px; }
+.popUp-col-2 .popUp-txt .chr-info .tag-list span {   display: inline-block; box-sizing: border-box; padding: 5px 8px; background: #fff; color: #111;
+font-size: 14px; margin: 2px 1px;border-radius: 3px; font-weight: bold; }
+.popUp-col-2 .popUp-txt .chr-desc { width:100%; box-sizing: border-box; padding: 15px;background: #efeff1; }
+.popUp-col-2 .popUp-txt .chr-desc .chr-desc-scroll { max-height: 100px; overflow-y: scroll; width:100%; }
+.popUp-col-2 .popUp-txt .chr-desc .chr-desc-scroll p { font-size: 14px; color:#555; line-height: 1.6;  }
+.popUp-close { display:block; position: absolute; right: 15px; top: 15px;  box-sizing: border-box;padding: 10px;cursor: pointer; opacity:0.8; } 
+.popUp-close img {  vertical-align: top;width: 15px; display: block;}
+.popUp-close:hover { opacity:1; }
+
+.popUpTag--1 { border: 2px solid #5600ff; }
+.popUpTag--2 { border: 2px solid #ff0000; }
+.popUpTag--3 { border: 2px solid #ff0076; }
+.popUpTag--4 { border: 2px solid #60d273; }
+.popUpTag--5 { border: 2px solid #ff784f; }
+.popUpTag--6 { border: 2px solid #ffdc34; }
+.popUpTag--7 { border: 2px solid #920000; }
+.popUpTag--8 { border: 2px solid #00b0cc; }
 
 
 .speach-list { margin: 50px auto; width: 100%;  }
@@ -373,8 +424,8 @@ position: absolute;top: 1px; color: #fff; text-shadow: 1px 1px 1px #111; left: 5
 .spc-card .spc-text .quoto-start {}
 .spc-card .spc-text .quoto-end { text-align: right;}
 .spc-card .spc-text .text-holder {  margin: 15px auto; }
-.spc-card .spc-text .text-holder p {word-break: keep-all; font-weight: bold;text-align: center; color:#fff; font-size: 20px; line-height: 1.6; font-family: 'Noto Serif KR',  'notokr-regular';}
-.spc-card .spc-text .text-holder p .sm { display: block; font-size: 16px; opacity: 0.65;  margin: 5px 0;    text-shadow: 1px 1px 1px rgba(0,0,0,0.4);}
+.spc-card .spc-text .text-holder p {word-break: keep-all; font-weight: bold;text-align: center; color:#fff; font-size: 20px; line-height: 1.6;  text-shadow: 1px 1px 1px rgba(0,0,0,0.4);font-family: 'Noto Serif KR',  'notokr-regular';}
+.spc-card .spc-text .text-holder p .sm { display: block; font-size: 16px; opacity: 0.65;  margin: 5px 0; }
 
 .media-info { margin-top: 5px; }
 .media-info p {font-size: 15px; line-height: 1.5; color: #626567;}
