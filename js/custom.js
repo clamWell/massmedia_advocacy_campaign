@@ -133,11 +133,33 @@ $(function(){
 				var chrHolder = this.chrListHolder.find("ul").eq(this.data[i].chrType-1);
 				chrHolder.append(this.printTemplate(i));
 			}
+		},
+		showChrList : function(){
+			/*
+			var listCol = this.chrListHolder.find("ul");
+			for(lc=0;lc<listCol.length;l++){
+				var $li = listCol.eq(lc).find("li");
+				for(l=0;l<$li.length;l++){
+					$li.eq(l).delay(l*100).animate({"left":"0px","opacity":"1"},700, "easeOutCubic");
+				}
+			}*/
+			var $li = $(".chr-list .each-col ul li");
+			var delayTimeTick = 100;
+			for(l=0;l<$li.length;l++){
+				$li.eq(l).delay(l*delayTimeTick).animate({"left":"0px","opacity":"1"}, 400, "easeOutCubic");
+			}
+			setTimeout(function(){
+				$li.find(".chr-name").fadeIn(500, function(){
+					$(".axis--top").animate({"opacity":"1"}, 1000); 
+				});
+			}, $li.length*delayTimeTick );
+			
+
 		}
 	};
 	/*************make speach card***************/
-
-
+	
+	
 	/*****popUp card*****/
 	var popUpCard = {
 		data : chrData,
@@ -330,13 +352,15 @@ $(function(){
 	$(window).scroll(function(){
 		var nowScroll = $(window).scrollTop();
 		var nowScrollWithCon = nowScroll+screenHeight*0.6;
+		var showupAniDone = false; 
+		var chrListAniDone = false; 
+
 		progressBar.setProgress(nowScroll);
 
 		if( videoSlider.videoStatus !== videoSlider.checkVideoStatus(nowScroll)){
 			videoSlider.videoStatus = videoSlider.checkVideoStatus(nowScroll);
 			videoSlider.adjustVideoHolder();
 		}
-		var showupAniDone = false; 
 		if( nowScrollWithCon > $("#IMG_HOLDER_SHOWUP_ANI").offset().top && showupAniDone == false){
 			showUpImgAni();
 		}
@@ -344,6 +368,11 @@ $(function(){
 		if( popUpCard.onChrArea !== popUpCard.checkIfChrArea(nowScroll) ){
 			popUpCard.onChrArea = popUpCard.checkIfChrArea(nowScroll);
 			popUpCard.adjustCardStatus();
+		}
+
+		if( nowScrollWithCon > $(".media-graphic-area").offset().top && chrListAniDone == false){
+			 chrListAniDone = true;
+			chrGraph.showChrList();
 		}
 
 	});
