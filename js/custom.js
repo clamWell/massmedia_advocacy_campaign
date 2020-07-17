@@ -26,9 +26,7 @@ $(function(){
 
 	var MakeChr = {};
 	MakeChr.userChoice = [];
-	MakeChr.userChoice.step1 = {};
-	MakeChr.userChoice.step2 = {};
-	MakeChr.userChoice.step3 = {};
+
 
 	//사용자가 선택지 클릭할 때, 값을 데이터 배열에 넣는 역할.
 	makeChr.putUserChoice = function(){
@@ -63,7 +61,7 @@ $(function(){
 		printTemplate : function(i){
 			var d = this.data[i];
 			var n = randomRange(1, 7);
-			var template = ("<li class='spc-card'><div class='spc-card-wrap'><div class='card-index'><p>"+ ((i+1<10)? ("0"+(i+1)) : i+1) +"</p></div><div class='card-body card-body-0"+n+"'><div class='card-bg'><img src='img/s-c-"+((i+1<10)? ("0"+(i+1)): i+1)+".jpg' alt=''></div><div class='spc-text'><div class='quoto quoto-start'><img src='img/quoto-start.png' alt=''></div><div class='text-holder'><p>"+ d.spc +"</p></div><div class='quoto quoto-end'><img src='img/quoto-end.png' alt=''></div></div></div></div><div class='media-info'><p><span class='cont-name'>" + d.contName + "</span><span class='slash'>I</span><span class='maker'>"+ d.maker + "</span><span class='slash'>I</span><span class='year'>"+ d.year +"</span></p></div></li>");
+			var template = ("<li class='spc-card hideme'><div class='spc-card-wrap'><div class='card-index'><p>"+ ((i+1<10)? ("0"+(i+1)) : i+1) +"</p></div><div class='card-body card-body-0"+n+"'><div class='card-bg'><img src='img/s-c-"+((i+1<10)? ("0"+(i+1)): i+1)+".jpg' alt=''></div><div class='spc-text'><div class='quoto quoto-start'><img src='img/quoto-start.png' alt=''></div><div class='text-holder'><p>"+ d.spc +"</p></div><div class='quoto quoto-end'><img src='img/quoto-end.png' alt=''></div></div></div></div><div class='media-info'><p><span class='cont-name'>" + d.contName + "</span><span class='slash'>I</span><span class='maker'>"+ d.maker + "</span><span class='slash'>I</span><span class='year'>"+ d.year +"</span></p></div></li>");
 			return template;
 		},
 		makeCard : function(){
@@ -149,8 +147,9 @@ $(function(){
 				$li.eq(l).delay(l*delayTimeTick).animate({"left":"0px","opacity":"1"}, 400, "easeOutCubic");
 			}
 			setTimeout(function(){
-				$li.find(".chr-name").fadeIn(500, function(){
-					$(".axis--top").animate({"opacity":"1"}, 1000); 
+				$li.find(".chr-name").animate({"opacity":"1"},500, function(){
+					$(".axis--top").animate({"opacity":"1"}, 1000);
+					$(".divide-line").animate({"opacity":"1"}, 1000);
 				});
 			}, $li.length*delayTimeTick );
 			
@@ -206,10 +205,11 @@ $(function(){
 		},
 		openCard: function(){
 			this.popUpStatus = true;
+			var bottomPos = (isMobile==true)? "0px" : "60px"
 			$(".popUpBack").show();
 			$(".chrPopUp").fadeIn(100, function(){
 				$(".chrPopUp .chr-desc .chr-desc-scroll").scrollTop(0);
-				$(".chrPopUp").stop().animate({"bottom":"60px"}, 500, "easeOutCubic");
+				$(".chrPopUp").stop().animate({"bottom":bottomPos}, 500, "easeOutCubic");
 			});
 		},
 		setDefault: function(){
@@ -313,6 +313,10 @@ $(function(){
 	$(".chr-list").delegate(".each-chr-box","click", function(){
 		var idx = $(this).attr("data-chr-id");
 		popUpCard.checkChridx(idx);
+		if($(this).hasClass("on") == false){
+			$(".graphic-tag ul li").removeClass("on");
+			chrTag.resolveTagFilter();
+		}
 	});
 	$(".popUpBack, .popUp-close").on("click", function(){
 		popUpCard.closeCard();
@@ -333,6 +337,8 @@ $(function(){
 
 	/******** 모바일 전용 조정 ********/
 	if(isMobile==true){
+		$(".graph-img-rep").find("img").attr("src", "img/s01-graph-m.png");
+		$(".img-holder-s2-01 .cover").find("img").attr("src", "img/photo_media_01-m.jpg");
 
 	}
 	/******** 모바일 전용 조정 ********/
@@ -374,6 +380,13 @@ $(function(){
 			 chrListAniDone = true;
 			chrGraph.showChrList();
 		}
+
+		$(".hideme").each(function(i){
+			if( nowScroll + screenHeight > $(this).offset().top + $(this).outerHeight()*0.5 ){
+				$(this).stop().animate({"opacity":"1"},1000);
+			}
+		});
+
 
 	});
 	
