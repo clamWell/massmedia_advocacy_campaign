@@ -335,11 +335,18 @@ $(function(){
 		}
 	});
 
+	
+	
+	function avoid100vh(){
+		$(".spacer").height(screenHeight);
+		$(".fixed-slider-area .fixed-el").height(screenHeight);
+	}
+
 	/******** 모바일 전용 조정 ********/
 	if(isMobile==true){
 		$(".graph-img-rep").find("img").attr("src", "img/s01-graph-m.png");
 		$(".img-holder-s2-01 .cover").find("img").attr("src", "img/photo_media_01-m.jpg");
-
+		avoid100vh();
 	}
 	/******** 모바일 전용 조정 ********/
 
