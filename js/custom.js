@@ -21,6 +21,13 @@ $(function(){
 		$(".ie-block-9").hide();
 	})
 
+	function addUniqueId(){
+		chrData.forEach(function(v,i,a){
+			a[i].idN = i+1;
+		})
+	};
+	addUniqueId();
+
 	/*
 
 
@@ -74,6 +81,7 @@ $(function(){
 	};
 	/*************make speach card***************/
 
+
 	/********tag********/
 	var chrTag = {
 		tagList : [{"name":"반사회적인격장애","idx":"1"}, {"name":"범죄","idx":"2"}, {"name":"불륜","idx":"3"}, {"name":"배신과 음모","idx":"4"},{"name":"복수","idx":"5"},{"name":"누명","idx":"6"},{"name":"범죄나 폭력 피해","idx":"7"},{"name":"주변에 헌신","idx":"8"}],
@@ -93,13 +101,19 @@ $(function(){
 			$(".each-chr-box").each(function(index,item){
 				var dIdx =( $(item).attr("data-chr-id") * 1 )-1;
 				if(chrData[dIdx].tag.indexOf(filterTag)!= -1){
-					$(item).addClass("on");
+					if(filterTag == "범죄" && chrData[dIdx].tag.indexOf("피해")!= -1){
+					}else{
+						$(item).addClass("on");
+					}
 				}else{
 				}
 			});
 		},
 		resolveTagFilter: function(){
 			$(".each-chr-box").removeClass("off on");
+		},
+		resolveTagOn : function(){
+			$(".graphic-tag ul li").removeClass("on");
 		}
 	}
 	/********tag********/
@@ -121,8 +135,7 @@ $(function(){
 		},
 		printTemplate : function(i){
 			var d = this.data[i];
-			var idx = d.thumb.replace("thumb", "");
-			var template = "<li><div class='each-chr-box' data-chr-id='"+idx+"'><div class='thumb'><img src='img/" + d.thumb +".jpg' alt='섬네일'></div><div class='chr-name'>"+d.chrName +"</div><div class='tag-holder'>"+ this.printTagSpot(d.tag) +"</div></div></li>";
+			var template = "<li><div class='each-chr-box' data-chr-id='"+d.idN+"'><div class='thumb'><img src='img/" + d.thumb +".jpg' alt='섬네일'></div><div class='chr-name'>"+d.chrName +"</div><div class='tag-holder'>"+ this.printTagSpot(d.tag) +"</div></div></li>";
 			return template; 
 		},
 		makeChrList : function(){
@@ -150,10 +163,15 @@ $(function(){
 				$li.find(".chr-name").animate({"opacity":"1"},500, function(){
 					$(".axis--top").animate({"opacity":"1"}, 1000);
 					$(".divide-line").animate({"opacity":"1"}, 1000);
+					$(".chr-list").removeClass("blocked");
+					$(".graphic-tag ul").removeClass("blocked");
 				});
 			}, $li.length*delayTimeTick );
 			
 
+		},
+		resolveChrBox : function(){
+			$(".chr-list .each-chr-box").removeClass("clicked");
 		}
 	};
 	/*************make speach card***************/
@@ -225,6 +243,7 @@ $(function(){
 		adjustCardStatus: function(){
 			if(this.onChrArea == false && this.popUpStatus == true){
 				this.closeCard();
+				chrGraph.resolveChrBox();
 			}else{
 			
 			}
@@ -313,29 +332,30 @@ $(function(){
 	$(".chr-list").delegate(".each-chr-box","click", function(){
 		var idx = $(this).attr("data-chr-id");
 		popUpCard.checkChridx(idx);
+		chrGraph.resolveChrBox();
+		$(this).addClass("clicked");
 		if($(this).hasClass("on") == false){
-			$(".graphic-tag ul li").removeClass("on");
+			chrTag.resolveTagOn();
 			chrTag.resolveTagFilter();
 		}
+		
 	});
 	$(".popUpBack, .popUp-close").on("click", function(){
+		chrGraph.resolveChrBox();
 		popUpCard.closeCard();
 	});
 
 	$(".graphic-tag ul li").on("click", function(){
 		if($(this).hasClass("on")){
-			$(".graphic-tag ul li").removeClass("on");
+			chrTag.resolveTagOn();
 			chrTag.resolveTagFilter();
 		}else{
-			$(".graphic-tag ul li").removeClass("on");
+			chrTag.resolveTagOn();
 			$(this).addClass("on");
-			var tagIdx = $(this).index();
-			var tagTxt = $(this).find(".value").html().replace("#","");
-			chrTag.adjustTagFilter(tagTxt);
+			chrTag.adjustTagFilter( $(this).find(".value").html().replace("#","") );
 		}
 	});
 
-	
 	
 	function avoid100vh(){
 		$(".spacer").height(screenHeight);
