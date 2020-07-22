@@ -464,6 +464,15 @@ font-size: 14px; margin: 2px 1px;border-radius: 3px; font-weight: bold; }
 .card-body-06{background:#c3bb3b;}
 .card-body-07{background:#fd8f00;}
 
+
+.netwrok-graph-holder { max-width: 1200px; margin: 50px auto; }
+.netwrok-graph-holder .netwrok-graph { width: 100%; }
+.netwrok-graph-holder .netwrok-graph #NETWORK_GRAPH { width:100%;  height: 500px; /*background: #f5f5f5;*/ display: block;    overflow: inherit;}
+#NETWORK_GRAPH .node-label { font-size: 14px; font-weight:bold; color:#111; stroke: white;stroke-width: 1.5px;paint-order: stroke fill; text-anchor: middle;}
+#NETWORK_GRAPH .g-holder { transform: scale(1.1) translate(0px, 0px);transform-origin: center;}
+.netwrok-graph-holder .graph-des {margin: 10px auto;font-size: 14px; line-height: 1.5; opacity: 0.85;text-align: center; }
+
+
 .banner-list { width: 100%; max-width: 800px; margin: 100px auto; }
 .banner-list h3 {font-family: 'Noto Sans KR'; text-align: center; font-size:20px; font-weight:bold; color:#333; }
 .banner-list ul { }
@@ -707,7 +716,7 @@ padding: 30px 0; text-align: center;  max-width: 500px; margin: 0 auto;}
 .chr-list { margin-top: 30px; }
 .each-col-group { padding: 0px 10px; }
 .chr-list .each-col { padding: 0px 1px; }
-.chr-list .each-col ul li .each-chr-box{ width:100%; box-sizing: border-box;border: 1px solid transparent;border-radius: 3px; }
+.chr-list .each-col ul li .each-chr-box{  transition: none; width:100%; box-sizing: border-box;border: 1px solid transparent;border-radius: 3px; }
 .chr-list .each-col ul li .each-chr-box:hover { border: none; box-shadow:none; }
 .chr-list .each-col ul li .each-chr-box .thumb { width:100%; border-radius: 3px;}
 .each-chr-box .tag-holder { right:2px; }
@@ -731,6 +740,8 @@ color: #515058; margin-top:0; font-size:11px;background: none;text-shadow: none;
 .popUp-col-2 .popUp-txt .chr-desc .chr-desc-scroll p { font-size:13px; line-height:1.5;}
 .popUp-close {top: 5px; right: 5px;}
 
+span.jump { display:block;}
+
 .speach-list { }
 .speach-list ul li { width: 100%; box-sizing: border-box;  padding: 0px 20px;}
 .spc-card .card-index { z-index: 1;left: 10px;top:5px;}
@@ -741,6 +752,13 @@ color: #515058; margin-top:0; font-size:11px;background: none;text-shadow: none;
 .img-holder { margin: 50px auto; }
 .img-holder .img-col-2 { width:100%; }
 .img-holder .img-col-2  > img { display:block; margin: 5px auto; }
+
+.netwrok-graph-holder { margin: 20px auto; }
+.netwrok-graph-holder .netwrok-graph #NETWORK_GRAPH { height: 320px;}
+#NETWORK_GRAPH .g-holder { transform: scale(1.25) translate(0px, 0px);transform-origin: center;}
+.netwrok-graph-holder .graph-des {  font-size: 12px;width: 100%;text-align: left; padding: 0px 10px; box-sizing: border-box;}
+
+
 .banner-list { margin: 50px auto; }
 .banner-list h3 { font-size: 16px;}
 
