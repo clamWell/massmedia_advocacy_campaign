@@ -29,7 +29,7 @@ var s_card_data = [
     "imgURL": null,
     "contName": "사랑은 뷰티풀 인생은 원더풀",
     "maker": "KBS2",
-    "year": 2016
+    "year": "2019~2020"
   },
   {
     "exp": "얹혀살던 고아 인물이 아들의 아이를 낳아 데려오자",
