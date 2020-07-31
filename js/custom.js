@@ -34,7 +34,7 @@ $(function(){
 
 		}else{
 			$(".fixed-navi").stop().animate({"opacity":"1","z-index":"1"}, 300);
-		}	
+		}
 	}
 
 	/*************make speach card***************/
@@ -68,7 +68,7 @@ $(function(){
 					idx = this.tagList[c].idx;
 					break;
 				}
-			}		
+			}
 			return idx;
 		},
 		adjustTagFilter : function(filterTag){
@@ -99,7 +99,7 @@ $(function(){
 		data : chrData,
 		chrListHolder : $(".chr-list"),
 		printTagSpot : function(tagStr){
-			var tempTagStr = ""; 
+			var tempTagStr = "";
 			var tagArr = tagStr.split(",");
 			for(ti=0;ti<tagArr.length;ti++){
 				var t = tagArr[ti].replace(/^ /gi, "");
@@ -112,7 +112,7 @@ $(function(){
 		printTemplate : function(i){
 			var d = this.data[i];
 			var template = "<li><div class='each-chr-box' data-chr-id='"+d.idN+"'><div class='thumb'><img src='img/" + d.thumb +".jpg' alt='섬네일'></div><div class='chr-name'>"+d.chrName +"</div><div class='tag-holder'>"+ this.printTagSpot(d.tag) +"</div></div></li>";
-			return template; 
+			return template;
 		},
 		makeChrList : function(){
 			this.chrListHolder.find("ul").html("");
@@ -143,7 +143,7 @@ $(function(){
 					$(".graphic-tag ul").removeClass("blocked");
 				});
 			}, $li.length*delayTimeTick );
-			
+
 
 		},
 		resolveChrBox : function(){
@@ -151,8 +151,8 @@ $(function(){
 		}
 	};
 	/*************make speach card***************/
-	
-	
+
+
 	/*****popUp card*****/
 	var popUpCard = {
 		data : chrData,
@@ -166,7 +166,7 @@ $(function(){
 		},
 		printTag: function(tagStr){
 			$(".chrPopUp .tag-list").html("");
-			var tagItem = tagStr.split(","); 
+			var tagItem = tagStr.split(",");
 			for(i=0;i<tagItem.length;i++){
 				var tagText = tagItem[i].replace(/^ /gi, "");
 				tagText = tagText.trim();
@@ -195,7 +195,7 @@ $(function(){
 			$(".chrPopUp").stop().animate({"bottom":"-500px"}, 500, "easeOutCubic", function(){
 				$(".chrPopUp").hide();
 			});
-		
+
 		},
 		openCard: function(){
 			this.popUpStatus = true;
@@ -213,7 +213,7 @@ $(function(){
 			if( sc >= this.chrGraphicBody.offset().top-screenHeight && sc < (this.chrGraphicBody.offset().top + this.chrGraphicBody.height())){
 				return true;
 			}else{
-				return false;	
+				return false;
 			}
 		},
 		adjustCardStatus: function(){
@@ -221,11 +221,11 @@ $(function(){
 				this.closeCard();
 				chrGraph.resolveChrBox();
 			}else{
-			
+
 			}
 		}
 	};
-	
+
 	/*****popUp card*****/
 
 	/*******Video Slider function******/
@@ -262,7 +262,7 @@ $(function(){
 				this.sliderBody.removeClass("sder-bck");
 			}
 		}
-	
+
 	}
 	/*******Video Slider function******/
 
@@ -270,13 +270,13 @@ $(function(){
 	var progressBar = {
 		progressStatus : false,
 		showProgress : function(){
-			$(".fixed-navi").stop().animate({"right":"10px"},500); 
+			$(".fixed-navi").stop().animate({"right":"10px"},500);
 		},
 		hideProgress : function(){
-			$(".fixed-navi").stop().animate({"right":"-200px"},500); 
+			$(".fixed-navi").stop().animate({"right":"-200px"},500);
 		},
 		setProgress : function(sc){
-			var fullProgress = $(document).height()-$(window).height()-( $(".footer-area").height()+$(".digital-list").height() +$(".common-footer").height());	
+			var fullProgress = $(document).height()-$(window).height()-( $(".footer-area").height()+$(".digital-list").height() +$(".common-footer").height());
 			var ScrollPer = (sc/fullProgress)*100;
 			if( (sc<$(".sec--01").offset().top || sc > fullProgress) && (this.progressStatus == true)){
 				this.progressStatus = false;
@@ -290,8 +290,8 @@ $(function(){
 				$(".progress").css({"width":ScrollPer+"%"});
 			}else {
 				$(".progress").css({"height":ScrollPer+"%"});
-			}	
-		
+			}
+
 		}
 	}
 	/********progress********/
@@ -324,16 +324,20 @@ $(function(){
 
 			var width = 500;
 			var height = 500;
-		
+
 			var simulation = d3.forceSimulation(nodes)
 					  .force("link", d3.forceLink(links).id( function(d){ return d.id }))
 					  .force("charge", d3.forceManyBody().strength(-100))
-					  .force("center", d3.forceCenter(width / 2, height / 2));
+					  .force("center", d3.forceCenter(width / 2, height / 2))
+					  .force("collide",d3.forceCollide().radius( function(d){ return d.value*8}) );
+
+			//simulation.stop(); // stop 필요한가?
+
 
 			var svg = d3.select("#NETWORK_GRAPH")
 						.attr("viewBox", [0, 0, width, height]);
 			var gHolder = svg.append("g")
-								.attr("class", "g-holder")
+								.attr("class", "g-holder");
 			var link = gHolder.append("g")
 							.attr("stroke", "#999")
 							.attr("stroke-opacity", 0.6)
@@ -341,7 +345,7 @@ $(function(){
 							.data(links)
 							.join("line")
 								.attr("stroke-width", function(d){ return Math.sqrt(d.value*5)} );
-			
+
 			/*
 			var node = svg.append("g")
 						.selectAll("circle")
@@ -351,12 +355,12 @@ $(function(){
 								.attr("r", 8)
 								.attr("fill", color)
 								.call(drag(simulation));  // text 라벨 추가를 위해 g로 그룹핑
-			
+
 			node.append("text")
 			  .text(function(d){ return d.id })
 			  .style("font-size", "12px") */
 
-			
+
 			var node = gHolder.append("g")
 						.attr("class", "circle-node-holder")
 					.selectAll("g")
@@ -381,7 +385,7 @@ $(function(){
 					.attr("x2", function(d){ return d.target.x; })
 					.attr("y2", function(d){ return d.target.y; });
 
-				/*node	
+				/*node
 					.attr("cx", function(d){ return d.x; })
 					.attr("cy", function(d){ return d.y; });*/
 
@@ -437,7 +441,7 @@ $(function(){
 			chrTag.resolveTagOn();
 			chrTag.resolveTagFilter();
 		}
-		
+
 	});
 	$(".popUpBack, .popUp-close").on("click", function(){
 		chrGraph.resolveChrBox();
@@ -455,7 +459,7 @@ $(function(){
 		}
 	});
 
-	
+
 	function avoid100vh(){
 		$(".spacer").height(screenHeight);
 		$(".fixed-slider-area .fixed-el").height(screenHeight);
@@ -465,6 +469,7 @@ $(function(){
 	if(isMobile==true){
 		$(".graph-img-rep").find("img").attr("src", "img/s01-graph-m.png");
 		$(".img-holder-s2-01 .cover").find("img").attr("src", "img/photo_media_01-m.jpg");
+		$(".network-graph-img").find("img").attr("src", "img/word2vec_network_m.jpg");
 		avoid100vh();
 	}
 	/******** 모바일 전용 조정 ********/
@@ -473,16 +478,16 @@ $(function(){
 		speachCard.makeCard();
 		chrGraph.makeChrList();
 		popUpCard.setDefault();
-		networkGraph.createGraph();
+		//networkGraph.createGraph();
 	}
 
 	$(".loading-page").fadeOut(200, function(){
 		init();
 	});
 
-	
+
 	$("#NETWORK_GRAPH").on("touchstart", function(event){
-		if(event.cancelable) { 
+		if(event.cancelable) {
 			event.preventDefault();
 		}
 	});
@@ -490,8 +495,8 @@ $(function(){
 	$(window).scroll(function(){
 		var nowScroll = $(window).scrollTop();
 		var nowScrollWithCon = nowScroll+screenHeight*0.6;
-		var showupAniDone = false; 
-		var chrListAniDone = false; 
+		var showupAniDone = false;
+		var chrListAniDone = false;
 
 		progressBar.setProgress(nowScroll);
 
@@ -502,7 +507,7 @@ $(function(){
 		if( nowScrollWithCon > $("#IMG_HOLDER_SHOWUP_ANI").offset().top && showupAniDone == false){
 			showUpImgAni();
 		}
-		
+
 		if( popUpCard.onChrArea !== popUpCard.checkIfChrArea(nowScroll) ){
 			popUpCard.onChrArea = popUpCard.checkIfChrArea(nowScroll);
 			popUpCard.adjustCardStatus();
@@ -521,7 +526,7 @@ $(function(){
 
 
 	});
-	
+
 
 });
 
