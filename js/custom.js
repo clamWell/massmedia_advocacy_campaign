@@ -44,7 +44,7 @@ $(function(){
 		printTemplate : function(i){
 			var d = this.data[i];
 			var n = randomRange(1, 7);
-			var template = ("<li class='spc-card hideme'><div class='spc-card-wrap'><div class='card-index'><p>"+ ((i+1<10)? ("0"+(i+1)) : i+1) +"</p></div><div class='card-body card-body-0"+n+"'><div class='card-bg'><img src='img/s-c-"+((i+1<10)? ("0"+(i+1)): i+1)+".jpg' alt=''></div><div class='spc-text'><div class='quoto quoto-start'><img src='img/quoto-start.png' alt=''></div><div class='text-holder'><p>"+ d.spc +"</p></div><div class='quoto quoto-end'><img src='img/quoto-end.png' alt=''></div></div></div></div><div class='media-info'><p><span class='cont-name'>" + d.contName + "</span><span class='slash'>I</span><span class='maker'>"+ d.maker + "</span><span class='slash'>I</span><span class='year'>"+ d.year +"</span></p></div></li>");
+			var template = ("<li class='spc-card hideme'><div class='spc-card-wrap'><div class='card-index'><p>"+ ((i+1<10)? ("0"+(i+1)) : i+1) +"</p></div><div class='card-body card-body-0"+n+"'><div class='card-bg'><img src='img/s-c-"+((i+1<10)? ("0"+(i+1)): i+1)+".jpg' alt=''></div><div class='spc-text'><div class='quoto quoto-start'><img src='img/quoto-start.png' alt=''></div><div class='text-holder'><p>"+ d.spc +"</p></div><div class='quoto quoto-end'><img src='img/quoto-end.png' alt=''></div></div><div class='media-info'><p><span class='cont-name'>" + d.contName + "</span><span class='slash'>I</span><span class='maker'>"+ d.maker + "</span><span class='slash'>I</span><span class='year'>"+ d.year +"</span></p></div></div></div></li>");
 			return template;
 		},
 		makeCard : function(){
@@ -53,6 +53,13 @@ $(function(){
 			for(i=0;i<this.data.length;i++){
 				this.cardListHolder.append(this.printTemplate(i));
 			}
+		},
+		openCard : function($obj){
+			var $this = $obj;
+			$this.addClass("card-body-open");
+			$this.find(".media-info").addClass("media-info-after");
+			$this.find(".spc-text").addClass("spc-text-open");
+			$this.find(".card-bg img").animate({"opacity":"0.4"}, 300, "easeInCubic");
 		}
 	};
 	/*************make speach card***************/
@@ -447,8 +454,13 @@ $(function(){
 		chrGraph.resolveChrBox();
 		popUpCard.closeCard();
 	});
-
+	
+	var cursorAniShow = true;
 	$(".graphic-tag ul li").on("click", function(){
+		if(cursorAniShow){
+			cursorAniShow = false;
+			$(".graphic-tag .click-animation").hide();
+		}
 		if($(this).hasClass("on")){
 			chrTag.resolveTagOn();
 			chrTag.resolveTagFilter();
@@ -464,6 +476,11 @@ $(function(){
 		$(".spacer").height(screenHeight);
 		$(".fixed-slider-area .fixed-el").height(screenHeight);
 	}
+
+	$(".speach-list").delegate(".spc-card .card-body","click", function(e){
+		speachCard.openCard($(this));
+	});
+
 
 	/******** 모바일 전용 조정 ********/
 	if(isMobile==true){
@@ -519,8 +536,8 @@ $(function(){
 		}
 
 		$(".hideme").each(function(i){
-			if( nowScroll + screenHeight > $(this).offset().top + $(this).outerHeight()*0.5 ){
-				$(this).stop().animate({"opacity":"1"},500);
+			if( nowScroll + screenHeight > $(this).offset().top + $(this).outerHeight()*0.8 ){
+				$(this).stop().animate({"opacity":"1", "top":"0px"},500,"easeOutBack");
 			}
 		});
 
