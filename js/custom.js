@@ -253,7 +253,7 @@ $(function(){
 			}
 		},
 		adjustVideoHolder :  function(){
-			console.log(this.videoStatus);
+			//console.log(this.videoStatus);
 			var $fixedEl = $(".fixed-el");
 			if(this.videoStatus == "on"){
 				$fixedEl.addClass("fixed-el-fixed");
@@ -488,13 +488,26 @@ $(function(){
 		$(".img-holder-s2-01 .cover").find("img").attr("src", "img/photo_media_01-m.jpg");
 		$(".network-graph-img").find("img").attr("src", "img/word2vec_network_m.jpg");
 		avoid100vh();
+        $(".video-fullScreen").html("");
+        $(".video-fullScreen").hide();
+		$("#IMG_HOLDER_SHOWUP_ANI").find(".caption").html("위에서부터 고아 설정 등장인물인 영화 <악인전>의 ‘김성규’,  <동네변호사 조들호>의 ‘이자경’");
+
+	}else{
+		$(".video-fullScreen-m").html("");
+        $(".video-fullScreen-m").hide();
+
 	}
 	/******** 모바일 전용 조정 ********/
+
+	function animateIntro(){
+		$(".graphic-mornitor").animate({"opacity":"1"}, 2000, "swing");
+	}
 
 	function init(){
 		speachCard.makeCard();
 		chrGraph.makeChrList();
 		popUpCard.setDefault();
+		 animateIntro()
 		//networkGraph.createGraph();
 	}
 
@@ -531,12 +544,14 @@ $(function(){
 		}
 
 		if( nowScrollWithCon > $(".media-graphic-area").offset().top && chrListAniDone == false){
-			 chrListAniDone = true;
+			chrListAniDone = true;
 			chrGraph.showChrList();
 		}
 
+
+		var adjustMultipleValue = (isMobile == true)? 0.4 : 0.8;
 		$(".hideme").each(function(i){
-			if( nowScroll + screenHeight > $(this).offset().top + $(this).outerHeight()*0.8 ){
+			if( nowScroll + screenHeight > $(this).offset().top + $(this).outerHeight()*adjustMultipleValue ){
 				$(this).stop().animate({"opacity":"1", "top":"0px"},500,"easeOutBack");
 			}
 		});
