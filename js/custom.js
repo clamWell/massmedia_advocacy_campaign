@@ -490,8 +490,8 @@ $(function(){
 		avoid100vh();
         $(".video-fullScreen").html("");
         $(".video-fullScreen").hide();
-		$("#IMG_HOLDER_SHOWUP_ANI").find(".caption").html("위에서부터 고아 설정 등장인물인 영화 <악인전>의 ‘김성규’,  <동네변호사 조들호>의 ‘이자경’");
-
+		$("#IMG_HOLDER_SHOWUP_ANI").find(".caption").html("위에서부터 고아 설정 등장인물인 영화 <악인전>의 ‘강경호’,  <동네변호사 조들호>의 ‘이자경’");
+		$(".video-boxing iframe").css({"width":$(".blank img").width(),"height":$(".blank img").height()});
 	}else{
 		$(".video-fullScreen-m").html("");
         $(".video-fullScreen-m").hide();
