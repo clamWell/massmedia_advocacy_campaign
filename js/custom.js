@@ -502,12 +502,14 @@ $(function(){
 	function animateIntro(){
 		$(".graphic-mornitor").animate({"opacity":"1"}, 2000, "swing");
 	}
+	
+
 
 	function init(){
 		speachCard.makeCard();
 		chrGraph.makeChrList();
 		popUpCard.setDefault();
-		 animateIntro()
+		animateIntro()
 		//networkGraph.createGraph();
 	}
 
